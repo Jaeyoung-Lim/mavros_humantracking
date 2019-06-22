@@ -21,7 +21,6 @@
   <build_depend>mavros_msgs</build_depend>
   <build_depend> eigen_catkin</build_depend>
   <build_depend>geometric_controller</build_depend>
-  <build_depend>trajectory_publisher</build_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>catkin_simple</run_depend>
@@ -33,7 +32,6 @@
   <run_depend>mavros</run_depend>
   <run_depend>mavros_msgs</run_depend>
   <run_depend>geometric_controller</run_depend>
-  <run_depend>trajectory_publisher</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

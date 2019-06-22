@@ -7,6 +7,7 @@
 #include <Eigen/Dense>
 
 #include "mavros_msgs/ActuatorControl.h"
+#include "mavros_msgs/MountControl.h"
 
 #include "geometric_controller/geometric_controller.h"
 
@@ -19,12 +20,14 @@ class HumanTrackingCtrl
     ros::NodeHandle nh_private_;
 
     ros::Publisher actuator_setpoint_pub_;
+    ros::Publisher mount_control_pub_;
 
     ros::Timer cmdloop_timer_, statusloop_timer_;
 
     void CmdLoopCallback(const ros::TimerEvent& event);
     void StatusLoopCallback(const ros::TimerEvent& event);
     void PublishActuatorSetpoints();
+    void PublishMountControl();
 
     geometricCtrl geometric_controller_;
 
