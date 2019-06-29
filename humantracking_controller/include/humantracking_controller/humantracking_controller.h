@@ -28,12 +28,16 @@ class HumanTrackingCtrl
     void StatusLoopCallback(const ros::TimerEvent& event);
     void PublishActuatorSetpoints();
     void PublishMountControl();
+    void PointGimbalToPoint(Eigen::Vector3d roi_point);
 
     geometricCtrl geometric_controller_;
 
     double gimbal_pitch_;
     double gimbal_yaw_;
-    double dtheta;
+
+    Eigen::Vector3d mav_pos_, mav_vel_, mav_bodyrate_;
+    Eigen::Vector3d tracking_pos_; //
+    Eigen::Vector4d mav_att_;
 
   public:
     HumanTrackingCtrl(const ros::NodeHandle& nh, const ros::NodeHandle& nh_private);

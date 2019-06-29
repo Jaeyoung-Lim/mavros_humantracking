@@ -17,27 +17,19 @@ HumanTrackingCtrl::HumanTrackingCtrl(const ros::NodeHandle& nh, const ros::NodeH
   mount_control_pub_ = nh_.advertise<mavros_msgs::MountControl>("/mavros/mount_control/command", 1);
 
   gimbal_pitch_ = 0.0;
-  dtheta = 0.02;
+  tracking_pos_ << 0.0, 0.0, 0.0;
 }
 HumanTrackingCtrl::~HumanTrackingCtrl() {
   //Destructor
 }
 
 void HumanTrackingCtrl::CmdLoopCallback(const ros::TimerEvent& event){
+
+  geometric_controller_.getStates(mav_pos_, mav_att_, mav_vel_, mav_bodyrate_);
+
+  PointGimbalToPoint(tracking_pos_);
   // PublishActuatorSetpoints();
   PublishMountControl();
-
-  gimbal_pitch_ = gimbal_pitch_ + dtheta;
-
-  if(gimbal_pitch_ >= 3.14){
-    gimbal_pitch_ = 3.14;
-    dtheta = -0.2;
-  }
-  if(gimbal_pitch_ <= -3.14){
-    gimbal_pitch_ = -3.14;
-    dtheta = 0.2;
-  }
-
 }
 
 void HumanTrackingCtrl::StatusLoopCallback(const ros::TimerEvent& event){
@@ -72,6 +64,15 @@ void HumanTrackingCtrl::PublishMountControl(){
   mount_control_pub_.publish(msg);
 }
 
-// void HumaanTrackingCtrl::PintGimbalToPoint(Eingen::Vector3d roi){
-  
-// }
+void HumanTrackingCtrl::PointGimbalToPoint(Eigen::Vector3d roi_point){
+  Eigen::Vector3d error_vec;
+  double distance_2d;
+
+  error_vec = roi_point - mav_pos_;
+
+  distance_2d = std::sqrt(error_vec(0)*error_vec(0) + error_vec(1)*error_vec(1));
+
+  gimbal_pitch_ = std::atan2(error_vec(2), distance_2d);
+  gimbal_yaw_ = -std::atan2(error_vec(1), error_vec(0));
+
+}
