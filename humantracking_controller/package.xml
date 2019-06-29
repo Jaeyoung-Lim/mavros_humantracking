@@ -32,6 +32,7 @@
   <run_depend>mavros</run_depend>
   <run_depend>mavros_msgs</run_depend>
   <run_depend>geometric_controller</run_depend>
+  <run_depend>trajectory_publisher</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
