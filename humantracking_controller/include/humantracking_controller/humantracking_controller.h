@@ -9,6 +9,8 @@
 #include "mavros_msgs/ActuatorControl.h"
 #include "mavros_msgs/MountControl.h"
 #include "geometry_msgs/PointStamped.h"
+#include "mavros_msgs/CommandLong.h"
+#include "geometric_controller/geometric_controller.h"
 
 using namespace std;
 using namespace Eigen;
@@ -20,6 +22,7 @@ class HumanTrackingCtrl
 
     ros::Publisher actuator_setpoint_pub_;
     ros::Publisher mount_control_pub_;
+    ros::ServiceClient landinggear_client_;
 
     ros::Subscriber point_of_interest_sub_;
 
