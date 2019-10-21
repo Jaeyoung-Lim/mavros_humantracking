@@ -1,0 +1,13 @@
+- git:
+    local-name: mavros
+    uri: https://github.com/mavlink/mavros.git
+    version: c373472c75310d1b76f40d2e4ea8b0b72f894e36
+- git:
+    local-name: mavros_controllers
+    uri: https://github.com/Jaeyoung-Lim/mavros_controllers.git
+- git:
+    local-name: catkin_simple
+    uri : https://github.com/catkin/catkin_simple.git
+- git:
+    local-name: eigen_catkin
+    uri: https://github.com/ethz-asl/eigen_catkin.git
