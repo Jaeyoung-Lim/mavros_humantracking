@@ -7,8 +7,7 @@ using namespace std;
 //Constructor
 HumanTrackingCtrl::HumanTrackingCtrl(const ros::NodeHandle& nh, const ros::NodeHandle& nh_private):
   nh_(nh),
-  nh_private_(nh_private),
-  geometric_controller_(nh, nh_private) {
+  nh_private_(nh_private) {
 
   cmdloop_timer_ = nh_.createTimer(ros::Duration(0.1), &HumanTrackingCtrl::CmdLoopCallback, this); // Define timer for constant loop rate
   statusloop_timer_ = nh_.createTimer(ros::Duration(1), &HumanTrackingCtrl::StatusLoopCallback, this); // Define timer for constant loop rate
@@ -24,8 +23,6 @@ HumanTrackingCtrl::~HumanTrackingCtrl() {
 }
 
 void HumanTrackingCtrl::CmdLoopCallback(const ros::TimerEvent& event){
-
-  geometric_controller_.getStates(mav_pos_, mav_att_, mav_vel_, mav_bodyrate_);
 
   PointGimbalToPoint(tracking_pos_);
   // PublishActuatorSetpoints();
