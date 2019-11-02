@@ -15,6 +15,8 @@ HumanTrackingCtrl::HumanTrackingCtrl(const ros::NodeHandle& nh, const ros::NodeH
   actuator_setpoint_pub_ = nh_.advertise<mavros_msgs::ActuatorControl>("/mavros/actuator_control", 1);
   mount_control_pub_ = nh_.advertise<mavros_msgs::MountControl>("/mavros/mount_control/command", 1);
 
+  point_of_interest_sub_ = nh_private_.subscribe("point_of_interest", 1, &HumanTrackingCtrl::PointOfInterestCallback, this,ros::TransportHints().tcpNoDelay());
+
   gimbal_pitch_ = 0.0;
   tracking_pos_ << 0.0, 0.0, 0.0;
 }
@@ -32,6 +34,14 @@ void HumanTrackingCtrl::CmdLoopCallback(const ros::TimerEvent& event){
 void HumanTrackingCtrl::StatusLoopCallback(const ros::TimerEvent& event){
 
 
+}
+
+void HumanTrackingCtrl::PointOfInterestCallback(const geometry_msgs::PointStamped &msg){
+
+  tracking_pos_(0) = msg.point.x;
+  tracking_pos_(1) = msg.point.y;
+  tracking_pos_(2) = msg.point.z;
+  
 }
 
 void HumanTrackingCtrl::PublishActuatorSetpoints(){
