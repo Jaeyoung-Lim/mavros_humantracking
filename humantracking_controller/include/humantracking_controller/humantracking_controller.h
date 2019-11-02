@@ -9,8 +9,6 @@
 #include "mavros_msgs/ActuatorControl.h"
 #include "mavros_msgs/MountControl.h"
 
-#include "geometric_controller/geometric_controller.h"
-
 using namespace std;
 using namespace Eigen;
 class HumanTrackingCtrl
@@ -29,8 +27,6 @@ class HumanTrackingCtrl
     void PublishActuatorSetpoints();
     void PublishMountControl();
     void PointGimbalToPoint(Eigen::Vector3d roi_point);
-
-    geometricCtrl geometric_controller_;
 
     double gimbal_pitch_;
     double gimbal_yaw_;
