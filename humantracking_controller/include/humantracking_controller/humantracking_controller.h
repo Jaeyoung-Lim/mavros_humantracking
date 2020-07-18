@@ -6,9 +6,10 @@
 #include <ros/ros.h>
 #include <Eigen/Dense>
 
-#include "mavros_msgs/ActuatorControl.h"
-#include "mavros_msgs/MountControl.h"
-#include "geometry_msgs/PointStamped.h"
+#include <mavros_msgs/ActuatorControl.h>
+#include <mavros_msgs/MountControl.h>
+#include <geometry_msgs/PointStamped.h>
+#include <geometry_msgs/PoseStamped.h>
 
 using namespace std;
 using namespace Eigen;
@@ -22,11 +23,13 @@ class HumanTrackingCtrl
     ros::Publisher mount_control_pub_;
 
     ros::Subscriber point_of_interest_sub_;
+    ros::Subscriber mav_pose_sub_;
 
     ros::Timer cmdloop_timer_, statusloop_timer_;
 
     void CmdLoopCallback(const ros::TimerEvent& event);
     void StatusLoopCallback(const ros::TimerEvent& event);
+    void mavposeCallback(const geometry_msgs::PoseStamped &msg);
     void PublishActuatorSetpoints();
     void PublishMountControl();
     void PointGimbalToPoint(Eigen::Vector3d roi_point);

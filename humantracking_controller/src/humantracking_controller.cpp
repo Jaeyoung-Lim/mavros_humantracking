@@ -16,7 +16,7 @@ HumanTrackingCtrl::HumanTrackingCtrl(const ros::NodeHandle& nh, const ros::NodeH
   mount_control_pub_ = nh_.advertise<mavros_msgs::MountControl>("/mavros/mount_control/command", 1);
 
   point_of_interest_sub_ = nh_private_.subscribe("point_of_interest", 1, &HumanTrackingCtrl::PointOfInterestCallback, this,ros::TransportHints().tcpNoDelay());
-
+  mav_pose_sub_ = nh_.subscribe("/mavros/local_position/pose", 1, &HumanTrackingCtrl::mavposeCallback, this, ros::TransportHints().tcpNoDelay());
   gimbal_pitch_ = 0.0;
   tracking_pos_ << 0.0, 0.0, 0.0;
 }
@@ -81,5 +81,12 @@ void HumanTrackingCtrl::PointGimbalToPoint(Eigen::Vector3d roi_point){
 
   gimbal_pitch_ = std::atan2(error_vec(2), distance_2d);
   gimbal_yaw_ = -std::atan2(error_vec(1), error_vec(0));
+
+}
+
+void HumanTrackingCtrl::mavposeCallback(const geometry_msgs::PoseStamped &msg) {
+  mav_pos_(0) = msg.pose.position.x;
+  mav_pos_(1) = msg.pose.position.y;
+  mav_pos_(2) = msg.pose.position.z;
 
 }
