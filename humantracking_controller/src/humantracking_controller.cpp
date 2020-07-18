@@ -12,11 +12,11 @@ HumanTrackingCtrl::HumanTrackingCtrl(const ros::NodeHandle& nh, const ros::NodeH
   cmdloop_timer_ = nh_.createTimer(ros::Duration(0.1), &HumanTrackingCtrl::CmdLoopCallback, this); // Define timer for constant loop rate
   statusloop_timer_ = nh_.createTimer(ros::Duration(1), &HumanTrackingCtrl::StatusLoopCallback, this); // Define timer for constant loop rate
   
-  actuator_setpoint_pub_ = nh_.advertise<mavros_msgs::ActuatorControl>("/mavros/actuator_control", 1);
-  mount_control_pub_ = nh_.advertise<mavros_msgs::MountControl>("/mavros/mount_control/command", 1);
+  actuator_setpoint_pub_ = nh_.advertise<mavros_msgs::ActuatorControl>("mavros/actuator_control", 1);
+  mount_control_pub_ = nh_.advertise<mavros_msgs::MountControl>("mavros/mount_control/command", 1);
 
   point_of_interest_sub_ = nh_private_.subscribe("point_of_interest", 1, &HumanTrackingCtrl::PointOfInterestCallback, this,ros::TransportHints().tcpNoDelay());
-  mav_pose_sub_ = nh_.subscribe("/mavros/local_position/pose", 1, &HumanTrackingCtrl::mavposeCallback, this, ros::TransportHints().tcpNoDelay());
+  mav_pose_sub_ = nh_.subscribe("mavros/local_position/pose", 1, &HumanTrackingCtrl::mavposeCallback, this, ros::TransportHints().tcpNoDelay());
   gimbal_pitch_ = 0.0;
   tracking_pos_ << 0.0, 0.0, 0.0;
 }
