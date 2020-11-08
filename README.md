@@ -1,6 +1,6 @@
 # mavros_humantracking
 
-[![Build Test](https://github.com/Jaeyoung-Lim/mavros_humantracking/workflows/Build%20Test/badge.svg)](https://github.com/Jaeyoung-Lim/mavros_humantracking/workflows/Build%20Test)
+[![Build Test](https://github.com/Jaeyoung-Lim/mavros_humantracking/workflows/Build%20Test/badge.svg)](https://github.com/Jaeyoung-Lim/mavros_humantracking/actions?query=workflow%3A%22Build+Test%22)
 
 `mavros_humantracking` is a package enabling image based object tracking with a gimbal attached to a drone. It uses the `MountControlPlugin` in [mavros](https://github.com/mavlink/mavros)
 
