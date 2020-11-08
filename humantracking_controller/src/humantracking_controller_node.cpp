@@ -2,9 +2,9 @@
 
 #include "humantracking_controller/humantracking_controller.h"
 
-//using namespace RAI;
+// using namespace RAI;
 int main(int argc, char** argv) {
-  ros::init(argc,argv,"humantracking_controller");
+  ros::init(argc, argv, "humantracking_controller");
   ros::NodeHandle nh("");
   ros::NodeHandle nh_private("~");
 
